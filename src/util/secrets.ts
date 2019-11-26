@@ -12,3 +12,5 @@ const prod = ENVIRONMENT === "production";
 export const MONGODB_URI = prod
 	? process.env["MONGODB_URI"]
 	: process.env["MONGODB_URI_LOCAL"];
+
+export const TOKEN_KEY = process.env.PRIVATE_KEY;
