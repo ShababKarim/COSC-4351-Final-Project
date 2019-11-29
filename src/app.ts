@@ -32,6 +32,9 @@ app.set("port", process.env.PORT || 5000)
 // Register routes and middleware here
 app.get("/", Home.index);
 app.get("/api", authenticate, Api.index);
+app.get("/api/links", authenticate, Api.links);
 app.post("/api/register", Api.register);
+app.post("/api/login", Api.login);
+app.post("/api/update/link", authenticate, Api.updateLink);
 
 export default app;
