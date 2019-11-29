@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -19,11 +19,21 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function UncontrolledTextField() {
+const EmployeeLogin = () => {
     const classes = useStyles();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    function handleSubmit(event) {
+        event.preventDefault();
+    }
     return (
-        <form className={classes.container} noValidate autoComplete="off">
+        <form
+            className={classes.container}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+        >
             <div>
                 <TextField
                     required
@@ -35,6 +45,8 @@ export default function UncontrolledTextField() {
                     InputLabelProps={{
                         shrink: true
                     }}
+                    value={email}
+                    onInput={e => setEmail(e.target.value)}
                 />
                 <TextField
                     required
@@ -48,6 +60,8 @@ export default function UncontrolledTextField() {
                     InputLabelProps={{
                         shrink: true
                     }}
+                    value={password}
+                    onInput={e => setPassword(e.target.value)}
                 />
             </div>
             <Button
@@ -61,4 +75,6 @@ export default function UncontrolledTextField() {
             </Button>
         </form>
     );
-}
+};
+
+export default EmployeeLogin;

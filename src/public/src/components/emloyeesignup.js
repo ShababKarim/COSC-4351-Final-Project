@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function EmployeeSignUpForm() {
+const EmployeeSignUpForm = () => {
     const classes = useStyles();
 
     return (
@@ -94,4 +94,6 @@ export default function EmployeeSignUpForm() {
             </Button>
         </form>
     );
-}
+};
+
+export default EmployeeSignUpForm;
