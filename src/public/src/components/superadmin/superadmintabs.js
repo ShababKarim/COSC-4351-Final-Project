@@ -12,68 +12,73 @@ import ManageLinksForm from "../forms/managelinks";
 const drawerWidth = 240;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props;
 
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            <Box p={3}>{children}</Box>
+        </Typography>
+    );
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired
 };
 
 function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
-  };
+    return {
+        id: `simple-tab-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`
+    };
 }
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing(0),
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
-  }
+    root: {
+        flexGrow: 1,
+        marginTop: theme.spacing(0),
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth
+    }
 }));
 
 const SuperAdminTabs = () => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" color="transparent">
-        <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary">
-          <Tab label="Manage Admins" {...a11yProps(0)} />
-          <Tab label="Manage Links" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <ManageAdminsForm />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ManageLinksForm />
-      </TabPanel>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" color="default">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    indicatorColor="primary"
+                    textColor="primary"
+                >
+                    <Tab label="Manage Admins" {...a11yProps(0)} />
+                    <Tab label="Manage Links" {...a11yProps(1)} />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+                <ManageAdminsForm />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <ManageLinksForm />
+            </TabPanel>
+        </div>
+    );
 };
 
 export default SuperAdminTabs;
