@@ -1,17 +1,20 @@
 import React from "react";
 import "./App.css";
-import LoginSignUpPage from "./components/tab";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+import SuperAdmin from "./components/superadmin/superadmin";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+export const theme = createMuiTheme({
+  palette: {
+    primary: { 500: "#D32F2F" }
+  }
+});
+
 function App() {
-    return (
-        <React.Fragment>
-            <CssBaseline />
-            <Container maxWidth="sm">
-                <LoginSignUpPage />
-            </Container>
-        </React.Fragment>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <SuperAdmin />
+    </ThemeProvider>
+  );
 }
 
 export default App;
