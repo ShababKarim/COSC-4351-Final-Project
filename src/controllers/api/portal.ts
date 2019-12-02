@@ -1,16 +1,6 @@
 import { Request, Response } from "express";
 import * as bcrypt from "bcrypt";
-import { User, validateUser, validateLogin } from "../models/user";
-import { Link } from "../models/link";
-
-import { IAuthRequest } from "../types/Express";
-import { ILinkDocument } from "Models";
-
-export const index = (req: Request, res: Response) => {
-	res.json({
-		Default: "route"
-	});
-};
+import { User, validateUser, validateLogin } from "../../models/user";
 
 export const register = async (req: Request, res: Response) => {
 	// validate the request body first
@@ -52,43 +42,4 @@ export const login = async (req: Request, res: Response) => {
 		email: user.email,
 		adminType: user.adminType
 	});
-};
-
-// get list of links
-export const links = async (req: IAuthRequest, res: Response) => {
-	const { adminType } = req.user;
-	try {
-		const globalLinks = await Link.find({ adminType: "ADMIN" });
-
-		let adminSpecificLinks: ILinkDocument[] = [];
-		if (adminType === "SUPER_ADMIN") {
-			adminSpecificLinks = await Link.find({
-				adminType: { $ne: "ADMIN" }
-			});
-		} else if (adminType !== "ADMIN") {
-			adminSpecificLinks = await Link.find({
-				adminType
-			});
-		}
-
-		const viewable = globalLinks
-			.map(link => link.url)
-			.concat(adminSpecificLinks.map(link => link.url));
-		res.send(viewable);
-	} catch (err) {
-		res.status(400).send("Something went wrong");
-	}
-};
-
-// update link's admin role
-export const updateLink = async (req: IAuthRequest, res: Response) => {
-	if (req.user.adminType !== "SUPER_ADMIN")
-		res.status(400).send("You do not have permission");
-	const { url, adminType } = req.body;
-	try {
-		const result = await Link.updateOne({ url }, { adminType });
-		res.send(`Updated ${result.nModified} links`);
-	} catch (err) {
-		res.status(400).send("Something went wrong");
-	}
 };
