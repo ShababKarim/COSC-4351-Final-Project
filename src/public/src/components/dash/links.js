@@ -74,7 +74,9 @@ const Links = () => {
                                                 <Button
                                                     size="large"
                                                     fullWidth
-                                                    style={{ color: "white" }}
+                                                    style={{
+                                                        color: "white"
+                                                    }}
                                                 >
                                                     <ArrowForwardIcon></ArrowForwardIcon>
                                                 </Button>
