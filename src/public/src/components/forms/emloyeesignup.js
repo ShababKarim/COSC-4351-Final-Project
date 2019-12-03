@@ -21,9 +21,7 @@ const useStyles = makeStyles(theme => ({
 const EmployeeSignUpForm = () => {
     const classes = useStyles();
     const [values, handleChange] = useForm({
-        fname: "",
-        lname: "",
-        empID: "",
+        name: "",
         email: "",
         password: "",
         passwordConfirm: ""
@@ -49,9 +47,9 @@ const EmployeeSignUpForm = () => {
             <div>
                 <TextValidator
                     required
-                    name="fname"
+                    name="name"
                     id="first-name"
-                    label="First Name"
+                    label="Full Name"
                     placeholder="first name"
                     margin="normal"
                     fullWidth
@@ -59,52 +57,12 @@ const EmployeeSignUpForm = () => {
                         shrink: true
                     }}
                     color="secondary"
-                    value={values.fname}
+                    value={values.name}
                     onChange={handleChange}
-                    validators={["required", "matchRegexp:^[a-zA-Z]{0,30}$"]}
+                    validators={["required", "matchRegexp:^[a-zA-Z\\s]{0,30}$"]}
                     errorMessages={[
                         "this field is required",
                         "name is not valid"
-                    ]}
-                />
-                <TextValidator
-                    required
-                    name="lname"
-                    id="last-name"
-                    label="Last Name"
-                    placeholder="last name"
-                    margin="normal"
-                    fullWidth
-                    color="secondary"
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    value={values.lname}
-                    onChange={handleChange}
-                    validators={["required", "matchRegexp:^[a-zA-Z]{0,30}$"]}
-                    errorMessages={[
-                        "this field is required",
-                        "name is not valid"
-                    ]}
-                />
-                <TextValidator
-                    required
-                    name="empID"
-                    id="employee-id"
-                    label="Employee ID"
-                    placeholder="employee id"
-                    margin="normal"
-                    fullWidth
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-                    color="secondary"
-                    value={values.empID}
-                    onChange={handleChange}
-                    validators={["required", "matchRegexp:^\\w{4,30}$"]}
-                    errorMessages={[
-                        "this field is required",
-                        "id is not valid"
                     ]}
                 />
                 <TextValidator
