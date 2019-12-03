@@ -11,16 +11,25 @@ const Dashboard = () => {
 	const [links, setLinks] = useState([]);
 	useEffect(() => {
 		async function getLinks() {
-			fetch('http://localhost:5000/api/links', {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					'x-access-token': sessionStorage.getItem('x-auth-token')
-				}
-			})
-				.then(res => res.json())
-				.then(setLinks)
-				.catch(err => alert(err));
+			try {
+				const response = await fetch(
+					'http://localhost:5000/api/links',
+					{
+						method: 'GET',
+						mode: 'cors',
+						headers: {
+							'x-access-token': sessionStorage.getItem(
+								'x-auth-token'
+							)
+						}
+					}
+				);
+				const res = await response.json();
+				if (response.status !== 200) throw new Error(res);
+				setLinks(res);
+			} catch (err) {
+				alert(err);
+			}
 		}
 		getLinks();
 	}, []);
