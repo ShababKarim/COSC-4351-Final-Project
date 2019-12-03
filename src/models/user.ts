@@ -25,16 +25,24 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
 		minlength: 3,
 		maxlength: 255
 	},
-	isAdmin: {
+	adminType: {
+		type: String,
+		required: false,
+		default: "ADMIN"
+	},
+	pending: {
 		type: Boolean,
 		required: false,
-		default: false
+		default: true
 	}
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 UserSchema.methods.generateToken = function(): string {
-	const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, TOKEN_KEY);
+	const token = jwt.sign(
+		{ _id: this._id, adminType: this.adminType },
+		TOKEN_KEY
+	);
 	return token;
 };
 
@@ -48,6 +56,24 @@ export const validateUser = (user: any) => {
 			.min(3)
 			.max(50)
 			.required(),
+		email: joi
+			.string()
+			.min(5)
+			.max(255)
+			.required()
+			.email(),
+		password: joi
+			.string()
+			.min(3)
+			.max(255)
+			.required()
+	};
+	return joi.validate(user, schema);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const validateLogin = (user: any) => {
+	const schema: joi.SchemaLike = {
 		email: joi
 			.string()
 			.min(5)

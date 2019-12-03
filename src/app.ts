@@ -6,7 +6,9 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 
 import * as Home from "./controllers/home";
-import * as Api from "./controllers/api";
+import * as Admin from "./controllers/api/admin";
+import * as Links from "./controllers/api/links";
+import * as Portal from "./controllers/api/portal";
 import { authenticate } from "./util/auth";
 import { MONGODB_URI } from "./util/secrets";
 
@@ -17,6 +19,7 @@ mongoose
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,
+		useFindAndModify: false,
 		dbName: "link_login"
 	})
 	.then(() => console.log("DB connected"))
@@ -31,7 +34,15 @@ app.set("port", process.env.PORT || 5000)
 
 // Register routes and middleware here
 app.get("/", Home.index);
-app.get("/api", authenticate, Api.index);
-app.post("/api/register", Api.register);
+app.get("/api/links", authenticate, Links.links);
+app.get("/api/pending", authenticate, Admin.pending);
+app.post("/api/register", Portal.register);
+app.post("/api/login", Portal.login);
+app.post("/api/add/link", authenticate, Links.addLink);
+app.post("/api/update/link", authenticate, Links.updateLink);
+app.post("/api/update/admin", authenticate, Admin.modifyOrApproveAdmin);
+app.post("/api/update/admin-revoke", authenticate, Admin.revokeAdmin);
+app.post("/api/remove/admin", authenticate, Admin.denyAdmin);
+app.post("/api/remove/link", authenticate, Links.removeLink);
 
 export default app;
