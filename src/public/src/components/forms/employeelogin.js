@@ -35,7 +35,8 @@ const EmployeeLogin = () => {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
-				'content-type': 'application/json'
+				'content-type': 'application/json',
+				'Access-Control-Allow-Headers': 'x-auth-token'
 			},
 			body: JSON.stringify({
 				email: values.email,
@@ -43,12 +44,17 @@ const EmployeeLogin = () => {
 			})
 		})
 			.then(res => {
-				if (res.status !== 200) throw new Error(res.json());
+				if (res.status !== 200 && !res.headers.get('x-auth-token'))
+					throw new Error(res.json());
 
+				sessionStorage.setItem(
+					'x-auth-token',
+					res.headers.get('x-auth-token')
+				);
 				return res.json();
 			})
 			.then(authData => setAuth(authData))
-			.catch(err => console.error(err));
+			.catch(err => alert(err));
 	}
 	return (
 		<ValidatorForm

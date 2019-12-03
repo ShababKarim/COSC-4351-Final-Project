@@ -26,7 +26,7 @@ mongoose
 	.catch(err => console.error(err));
 
 app.set("port", process.env.PORT || 5000)
-	.use(cors())
+	.use(cors({ exposedHeaders: ["x-auth-token"] }))
 	.use(bodyParser.json())
 	.use(bodyParser.urlencoded({ extended: true }))
 	.use(morgan(":method :url :status :response-time ms"))
