@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../dash/navbar";
 import HomeDrawer from "../dash/homeDrawer";
-import SuperAdminTabs from "./superadmintabs";
+import SuperAdminTabs from "../superadmin/superadmintabs";
 
 const SuperAdmin = () => {
   return (
