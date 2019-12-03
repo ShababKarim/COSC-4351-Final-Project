@@ -37,6 +37,24 @@ const EmployeeSignUpForm = () => {
     function handleSubmit(event) {
         event.preventDefault();
         console.log(values);
+        fetch("http://localhost:5000/api/register", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name: values.name,
+                email: values.email,
+                password: values.password
+            })
+        })
+            .then(res => {
+                if (res.status !== 200) throw new Error(res.json());
+
+                return res.json();
+            })
+            .catch(err => console.error(err));
     }
     return (
         <ValidatorForm
