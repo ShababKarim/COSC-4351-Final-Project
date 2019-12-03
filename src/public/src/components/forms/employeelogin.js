@@ -30,7 +30,6 @@ const EmployeeLogin = () => {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		console.log(values.email, values.password);
 		fetch('http://localhost:5000/api/login', {
 			method: 'POST',
 			mode: 'cors',
