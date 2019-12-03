@@ -1,7 +1,11 @@
 module.exports = {
 	globals: {
 		"ts-jest": {
-			tsConfig: "tsconfig.json"
+			tsConfig: "tsconfig.json",
+			diagnostics: {
+				ignoreCodes: ["TS1192", "TS1259", "TS7006"],
+				warnOnly: true
+			}
 		}
 	},
 	moduleFileExtensions: ["ts", "js"],
