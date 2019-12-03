@@ -21,9 +21,7 @@ export const links = async (req: IAuthRequest, res: Response) => {
 			});
 		}
 
-		const viewable = globalLinks
-			.map(link => link.url)
-			.concat(adminSpecificLinks.map(link => link.url));
+		const viewable = [...globalLinks, ...adminSpecificLinks];
 		res.send(viewable);
 	} catch (err) {
 		res.status(400).send("Something went wrong");
