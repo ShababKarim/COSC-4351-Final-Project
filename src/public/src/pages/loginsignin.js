@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../../App';
+import theme from '../App';
 import Color from 'color';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import logo from '../images/UH_Red.png';
+import logo from '../components/images/UH_Red.png';
 import Image from 'react-image-resizer';
 import Grid from '@material-ui/core/Grid';
 

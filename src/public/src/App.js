@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 // import SuperAdmin from "./pages/superadmin";
-// import LoginSignUpPage from ./pages/loginsignin";
+import LoginSignUpPage from './pages/loginsignin';
 import Dashboard from './pages/dashboard';
 import grey from '@material-ui/core/colors/grey';
+import AuthContext from './context';
 
 export const theme = createMuiTheme({
 	palette: {
@@ -15,9 +16,12 @@ export const theme = createMuiTheme({
 });
 
 function App() {
+	const [auth, setAuth] = useState(null);
 	return (
 		<ThemeProvider theme={theme}>
-			<Dashboard />
+			<AuthContext.Provider value={{ auth, setAuth }}>
+				{auth ? <Dashboard /> : <LoginSignUpPage />}
+			</AuthContext.Provider>
 		</ThemeProvider>
 	);
 }
