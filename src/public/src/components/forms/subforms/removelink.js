@@ -36,12 +36,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const UpdateLink = props => {
+const RemoveLink = props => {
     const classes = useStyles();
     const [values, handleChange] = useForm({ link: '', role: '' });
 
     function handleSubmit(event) {
-        fetch('http://localhost:5000/api/update/link', {
+        fetch('http://localhost:5000/api/remove/link', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -49,8 +49,7 @@ const UpdateLink = props => {
                 'x-access-token': sessionStorage.getItem('x-auth-token')
             },
             body: JSON.stringify({
-                url: values.link,
-                adminType: values.role
+                url: values.link
             })
         })
             .then(res => {
@@ -63,7 +62,7 @@ const UpdateLink = props => {
     }
     return (
         <div className={classes.wrap}>
-            <h2 className={classes.header}>Update Links:</h2>
+            <h2 className={classes.header}>Remove Links:</h2>
             <div className={classes.container}>
                 <ValidatorForm
                     onError={errors => console.log(errors)}
@@ -89,36 +88,13 @@ const UpdateLink = props => {
                             })}
                         </SelectValidator>
                     </FormControl>
-                    <FormControl className={classes.roleSelect}>
-                        <SelectValidator
-                            name="role"
-                            label="Role"
-                            color="secondary"
-                            id="role-select"
-                            value={values.role}
-                            onChange={handleChange}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                        >
-                            <MenuItem value={'ADMIN'}>Global</MenuItem>
-                            <MenuItem value={'SALES_Admin'}>
-                                Sales Admin
-                            </MenuItem>
-                            <MenuItem value={'ENGG_ADMIN'}>
-                                Engineering Admin
-                            </MenuItem>
-                            <MenuItem value={'HR_ADMIN'}>HR Admin</MenuItem>
-                            <MenuItem value={'FINANCE_ADMIN'}>
-                                Finance Admin
-                            </MenuItem>
-                        </SelectValidator>
-                    </FormControl>
+
                     <ButtonGroup
                         variant="text"
                         color="primary"
                         className={classes.button}
                     >
-                        <Button type="submit">Update</Button>
+                        <Button type="submit">Remove</Button>
                     </ButtonGroup>
                 </ValidatorForm>
             </div>
@@ -126,4 +102,4 @@ const UpdateLink = props => {
     );
 };
 
-export default UpdateLink;
+export default RemoveLink;
