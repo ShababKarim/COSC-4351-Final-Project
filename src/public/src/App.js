@@ -19,7 +19,11 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<AuthContext.Provider value={{ auth, setAuth }}>
-				{auth ? <Dashboard /> : <LoginSignUpPage />}
+				{sessionStorage.getItem('x-auth-token') ? (
+					<Dashboard />
+				) : (
+					<LoginSignUpPage />
+				)}
 			</AuthContext.Provider>
 		</ThemeProvider>
 	);

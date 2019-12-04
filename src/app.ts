@@ -34,6 +34,7 @@ app.set("port", process.env.PORT || 5000)
 
 // Register routes and middleware here
 app.get("/", Home.index);
+app.get("/api/session-user", authenticate, Admin.sessionUser);
 app.get("/api/links", authenticate, Links.links);
 app.get("/api/pending", authenticate, Admin.pending);
 app.get("/api/current", authenticate, Admin.current);

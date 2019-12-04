@@ -3,6 +3,20 @@ import { User } from "../../models/user";
 
 import { IAuthRequest } from "../../types/Express";
 
+export const sessionUser = async (req: IAuthRequest, res: Response) => {
+	if (req.user.adminType !== "SUPER_ADMIN")
+		res.status(400).send("Not a super admin");
+	try {
+		const superAdmin = await User.findById(req.user._id).select([
+			"-password",
+			"-pending"
+		]);
+		res.send(superAdmin);
+	} catch (err) {
+		res.status(400).send("Something went wrong");
+	}
+};
+
 // get list of pending approvals
 export const current = async (req: IAuthRequest, res: Response) => {
 	if (req.user.adminType !== "SUPER_ADMIN")
