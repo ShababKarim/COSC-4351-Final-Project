@@ -5,11 +5,11 @@ import { User, validateUser, validateLogin } from "../../models/user";
 export const register = async (req: Request, res: Response) => {
 	// validate the request body first
 	const { error } = validateUser(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	if (error) return res.status(400).json(error.details[0].message);
 
 	//find an existing user
 	let user = await User.findOne({ email: req.body.email });
-	if (user) return res.status(400).send("User already registered.");
+	if (user) return res.status(400).json("User already registered.");
 
 	user = new User({
 		name: req.body.name,
@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
 	user.password = await bcrypt.hash(user.password, 10);
 	await user.save();
 
-	res.send("Thanks for registering, please wait for approval");
+	res.json("Thanks for registering, please wait for approval");
 };
 
 export const login = async (req: Request, res: Response) => {
