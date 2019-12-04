@@ -28,33 +28,37 @@ const EmployeeLogin = () => {
 	const classes = useStyles();
 	const [values, handleChange] = useForm({ email: '', password: '' });
 
-	function handleSubmit(event) {
+	const handleSubmit = async event => {
 		event.preventDefault();
-		fetch('http://localhost:5000/api/login', {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'content-type': 'application/json',
-				'Access-Control-Allow-Headers': 'x-auth-token'
-			},
-			body: JSON.stringify({
-				email: values.email,
-				password: values.password
-			})
-		})
-			.then(res => {
-				if (res.status !== 200 && !res.headers.get('x-auth-token'))
-					throw new Error(res.json());
+		try {
+			const response = await fetch('http://localhost:5000/api/login', {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'content-type': 'application/json',
+					'Access-Control-Allow-Headers': 'x-auth-token'
+				},
+				body: JSON.stringify({
+					email: values.email,
+					password: values.password
+				})
+			});
+			const res = await response.json();
+			if (
+				response.status !== 200 &&
+				!response.headers.get('x-auth-token')
+			)
+				throw new Error(res);
 
-				sessionStorage.setItem(
-					'x-auth-token',
-					res.headers.get('x-auth-token')
-				);
-				return res.json();
-			})
-			.then(authData => setAuth(authData))
-			.catch(err => alert(err));
-	}
+			sessionStorage.setItem(
+				'x-auth-token',
+				response.headers.get('x-auth-token')
+			);
+			setAuth(res);
+		} catch (err) {
+			alert(err);
+		}
+	};
 	return (
 		<ValidatorForm
 			className={classes.container}

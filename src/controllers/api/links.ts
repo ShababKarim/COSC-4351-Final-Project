@@ -22,41 +22,41 @@ export const links = async (req: IAuthRequest, res: Response) => {
 		}
 
 		const viewable = [...globalLinks, ...adminSpecificLinks];
-		res.send(viewable);
+		res.json(viewable);
 	} catch (err) {
-		res.status(400).send("Something went wrong");
+		res.status(400).json("Something went wrong");
 	}
 };
 
 // add link
 export const addLink = async (req: IAuthRequest, res: Response) => {
 	if (req.user.adminType !== "SUPER_ADMIN")
-		res.status(400).send("You are not authorized");
+		res.status(400).json("You are not authorized");
 	try {
 		const { url, adminType } = req.body;
-		if (!url || !adminType) res.status(400).send("Link fields missing");
+		if (!url || !adminType) res.status(400).json("Link fields missing");
 
 		let link = await Link.findOne({ url, adminType });
-		if (link) res.status(400).send("Link already exists");
+		if (link) res.status(400).json("Link already exists");
 
 		link = new Link({ url, adminType });
 		await link.save();
-		res.send(`${url} for ${adminType} added`);
+		res.json(`${url} for ${adminType} added`);
 	} catch (err) {
-		res.status(400).send("Something went wrong");
+		res.status(400).json("Something went wrong");
 	}
 };
 
 // remove link
 export const removeLink = async (req: IAuthRequest, res: Response) => {
 	if (req.user.adminType !== "SUPER_ADMIN")
-		res.status(400).send("You are not authorized");
+		res.status(400).json("You are not authorized");
 	try {
 		const { url } = req.body;
 		const result = await Link.deleteMany({ url });
-		res.send(`Removed ${result.deletedCount} link(s)`);
+		res.json(`Removed ${result.deletedCount} link(s)`);
 	} catch (err) {
-		res.status(400).send("Something went wrong");
+		res.status(400).json("Something went wrong");
 	}
 };
 
