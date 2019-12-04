@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { useForm } from "../hooks/useForm";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { useForm } from '../hooks/useForm';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const useStyles = makeStyles(theme => ({
     container: {
-        display: "flex",
-        flexWrap: "wrap"
+        display: 'flex',
+        flexWrap: 'wrap'
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -21,13 +21,13 @@ const useStyles = makeStyles(theme => ({
 const EmployeeSignUpForm = () => {
     const classes = useStyles();
     const [values, handleChange] = useForm({
-        name: "",
-        email: "",
-        password: "",
-        passwordConfirm: ""
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: ''
     });
     useEffect(() => {
-        ValidatorForm.addValidationRule("isPasswordMatch", value => {
+        ValidatorForm.addValidationRule('isPasswordMatch', value => {
             if (value !== values.password) {
                 return false;
             }
@@ -36,12 +36,11 @@ const EmployeeSignUpForm = () => {
     });
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(values);
-        fetch("http://localhost:5000/api/register", {
-            method: "POST",
-            mode: "cors",
+        fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            mode: 'cors',
             headers: {
-                "content-type": "application/json"
+                'content-type': 'application/json'
             },
             body: JSON.stringify({
                 name: values.name,
@@ -50,10 +49,11 @@ const EmployeeSignUpForm = () => {
             })
         })
             .then(res => {
-                if (res.status !== 200) throw new Error(res.json());
+                if (res.status !== 200) throw new Error(res.text());
 
-                return res.json();
+                return res.text();
             })
+            .then(alert)
             .catch(err => console.error(err));
     }
     return (
@@ -77,10 +77,10 @@ const EmployeeSignUpForm = () => {
                     color="secondary"
                     value={values.name}
                     onChange={handleChange}
-                    validators={["required", "matchRegexp:^[a-zA-Z\\s]{0,30}$"]}
+                    validators={['required', 'matchRegexp:^[a-zA-Z\\s]{0,30}$']}
                     errorMessages={[
-                        "this field is required",
-                        "name is not valid"
+                        'this field is required',
+                        'name is not valid'
                     ]}
                 />
                 <TextValidator
@@ -97,10 +97,10 @@ const EmployeeSignUpForm = () => {
                     color="secondary"
                     value={values.email}
                     onChange={handleChange}
-                    validators={["required", "isEmail"]}
+                    validators={['required', 'isEmail']}
                     errorMessages={[
-                        "this field is required",
-                        "email is not valid"
+                        'this field is required',
+                        'email is not valid'
                     ]}
                 />
                 <TextValidator
@@ -119,10 +119,10 @@ const EmployeeSignUpForm = () => {
                     color="secondary"
                     value={values.password}
                     onChange={handleChange}
-                    validators={["required", "matchRegexp:^(?=.*\\d).{6,30}$"]}
+                    validators={['required', 'matchRegexp:^(?=.*\\d).{6,30}$']}
                     errorMessages={[
-                        "this field is required",
-                        "password is not valid"
+                        'this field is required',
+                        'password is not valid'
                     ]}
                 />
                 <TextValidator
@@ -141,10 +141,10 @@ const EmployeeSignUpForm = () => {
                     color="secondary"
                     value={values.passwordConfirm}
                     onChange={handleChange}
-                    validators={["isPasswordMatch", "required"]}
+                    validators={['isPasswordMatch', 'required']}
                     errorMessages={[
-                        "password mismatch",
-                        "this field is required"
+                        'password mismatch',
+                        'this field is required'
                     ]}
                 />
             </div>
