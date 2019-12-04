@@ -49,7 +49,7 @@ const EmployeeSignUpForm = () => {
 					password: values.password
 				})
 			});
-			const res = await res.json();
+			const res = await response.json();
 			if (response.status !== 200) throw new Error(res);
 
 			alert(res);
