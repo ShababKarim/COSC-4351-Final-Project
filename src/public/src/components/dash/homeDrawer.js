@@ -6,12 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp"; //logout icon
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import FaceIcon from "@material-ui/icons/Face";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AuthContext from "../../context";
 
 const drawerWidth = 240;
@@ -59,39 +54,6 @@ const HomeDrawer = () => {
       >
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemIcon>
-              <FaceIcon />
-            </ListItemIcon>
-            <ListItemText primary="My Account" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ScheduleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Schedule" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <AccountBalanceIcon />
-            </ListItemIcon>
-            <ListItemText primary="Paycheck" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
           <ListItem button onClick={logout}>
             <ListItemIcon>
               <ExitToAppIcon />
