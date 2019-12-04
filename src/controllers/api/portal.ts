@@ -25,18 +25,18 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
 	const { error } = validateLogin(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	if (error) return res.status(400).json(error.details[0].message);
 
 	const user = await User.findOne({ email: req.body.email });
-	if (!user) return res.status(400).send("User does not exist");
+	if (!user) return res.status(400).json("User does not exist");
 
 	const match = await bcrypt.compare(req.body.password, user.password);
-	if (!match) return res.status(400).send("Password invalid");
+	if (!match) return res.status(400).json("Password invalid");
 
-	if (user.pending) return res.status(400).send("You haven't been approved");
+	if (user.pending) return res.status(400).json("You haven't been approved");
 
 	const token = user.generateToken();
-	res.header("x-auth-token", token).send({
+	res.header("x-auth-token", token).json({
 		_id: user._id,
 		name: user.name,
 		email: user.email,

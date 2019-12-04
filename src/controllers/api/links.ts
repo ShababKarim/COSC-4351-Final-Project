@@ -63,12 +63,12 @@ export const removeLink = async (req: IAuthRequest, res: Response) => {
 // update link's admin role
 export const updateLink = async (req: IAuthRequest, res: Response) => {
 	if (req.user.adminType !== "SUPER_ADMIN")
-		res.status(400).send("You do not have permission");
+		res.status(400).json("You do not have permission");
 	const { url, adminType } = req.body;
 	try {
 		const result = await Link.updateOne({ url }, { adminType });
-		res.send(`Updated ${result.nModified} links`);
+		res.json(`Updated ${result.nModified} links`);
 	} catch (err) {
-		res.status(400).send("Something went wrong");
+		res.status(400).json("Something went wrong");
 	}
 };
