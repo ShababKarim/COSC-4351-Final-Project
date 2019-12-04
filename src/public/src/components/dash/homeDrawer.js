@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,6 +12,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import FaceIcon from "@material-ui/icons/Face";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import HomeIcon from "@material-ui/icons/Home";
+import AuthContext from "../../context";
 
 const drawerWidth = 240;
 
@@ -40,7 +41,12 @@ const useStyles = makeStyles(theme => ({
 
 const HomeDrawer = () => {
   const classes = useStyles();
+  const { auth, setAuth } = useContext(AuthContext);
 
+  const logout = () => {
+    setAuth(null);
+    sessionStorage.clear();
+  };
   return (
     <div>
       <Drawer
@@ -86,7 +92,7 @@ const HomeDrawer = () => {
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={logout}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
