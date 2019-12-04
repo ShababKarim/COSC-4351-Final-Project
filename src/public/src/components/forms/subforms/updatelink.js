@@ -10,6 +10,8 @@ import {
     SelectValidator
 } from 'react-material-ui-form-validator';
 
+import { ROLES } from '../../../util';
+
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex'
@@ -100,17 +102,12 @@ const UpdateLink = props => {
                             validators={['required']}
                             errorMessages={['this field is required']}
                         >
-                            <MenuItem value={'ADMIN'}>Global</MenuItem>
-                            <MenuItem value={'SALES_Admin'}>
-                                Sales Admin
-                            </MenuItem>
-                            <MenuItem value={'ENGG_ADMIN'}>
-                                Engineering Admin
-                            </MenuItem>
-                            <MenuItem value={'HR_ADMIN'}>HR Admin</MenuItem>
-                            <MenuItem value={'FINANCE_ADMIN'}>
-                                Finance Admin
-                            </MenuItem>
+                            <MenuItem value={''}></MenuItem>
+                            {ROLES.map((role, index) => (
+                                <MenuItem key={index} value={role[0]}>
+                                    {role[1]}
+                                </MenuItem>
+                            ))}
                         </SelectValidator>
                     </FormControl>
                     <ButtonGroup
