@@ -1,16 +1,17 @@
-import React from "react";
-import CreateRemove from "./subforms/createremove";
-import AddRemoveRoles from "./subforms/addremoveroles";
-import UpdateRole from "./subforms/updaterole";
+import React from 'react';
+import usePending from '../hooks/usePending';
+import useCurrent from '../hooks/useCurrent';
 
-const ManageAdminsForm = () => {
-  return (
-    <div>
-      <CreateRemove />
-      <AddRemoveRoles />
-      <UpdateRole />
-    </div>
-  );
+import AdminPanel from '../AdminPanel/AdminPanel';
+
+const ManageAdminsForm = props => {
+	const [pending, setPending] = usePending();
+	const [current, setCurrent] = useCurrent();
+	return (
+		<div>
+			<AdminPanel pending={pending} />
+		</div>
+	);
 };
 
 export default ManageAdminsForm;

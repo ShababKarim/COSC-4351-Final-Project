@@ -6,6 +6,14 @@ import HomeDrawer from '../components/dash/homeDrawer';
 import Links from '../components/dash/links';
 import SuperAdminTabs from '../components/superadmin/superadmintabs';
 
+const fetchOptions = {
+	method: 'GET',
+	mode: 'cors',
+	headers: {
+		'x-access-token': sessionStorage.getItem('x-auth-token')
+	}
+};
+
 const Dashboard = () => {
 	const { auth } = useContext(AuthContext);
 	const [links, setLinks] = useState([]);
@@ -14,15 +22,7 @@ const Dashboard = () => {
 			try {
 				const response = await fetch(
 					'http://localhost:5000/api/links',
-					{
-						method: 'GET',
-						mode: 'cors',
-						headers: {
-							'x-access-token': sessionStorage.getItem(
-								'x-auth-token'
-							)
-						}
-					}
+					fetchOptions
 				);
 				const res = await response.json();
 				if (response.status !== 200) throw new Error(res);

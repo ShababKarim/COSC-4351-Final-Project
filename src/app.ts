@@ -36,6 +36,7 @@ app.set("port", process.env.PORT || 5000)
 app.get("/", Home.index);
 app.get("/api/links", authenticate, Links.links);
 app.get("/api/pending", authenticate, Admin.pending);
+app.get("/api/current", authenticate, Admin.current);
 app.post("/api/register", Portal.register);
 app.post("/api/login", Portal.login);
 app.post("/api/add/link", authenticate, Links.addLink);

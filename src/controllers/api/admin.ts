@@ -4,6 +4,21 @@ import { User } from "../../models/user";
 import { IAuthRequest } from "../../types/Express";
 
 // get list of pending approvals
+export const current = async (req: IAuthRequest, res: Response) => {
+	if (req.user.adminType !== "SUPER_ADMIN")
+		res.status(400).send("You do not have permission");
+	try {
+		const currentUsers = await User.find({
+			pending: false,
+			adminType: { $ne: "SUPER_ADMIN" }
+		}).select(["-password"]);
+		res.send(currentUsers);
+	} catch (err) {
+		res.status(400).send("Something went wrong");
+	}
+};
+
+// get list of pending approvals
 export const pending = async (req: IAuthRequest, res: Response) => {
 	if (req.user.adminType !== "SUPER_ADMIN")
 		res.status(400).send("You do not have permission");
