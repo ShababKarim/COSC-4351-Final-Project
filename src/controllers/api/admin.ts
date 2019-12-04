@@ -4,14 +4,12 @@ import { User } from "../../models/user";
 import { IAuthRequest } from "../../types/Express";
 
 export const sessionUser = async (req: IAuthRequest, res: Response) => {
-	if (req.user.adminType !== "SUPER_ADMIN")
-		res.status(400).json("Not a super admin");
 	try {
-		const superAdmin = await User.findById(req.user._id).select([
+		const userRole = await User.findById(req.user._id).select([
 			"-password",
 			"-pending"
 		]);
-		res.json(superAdmin);
+		res.json(userRole);
 	} catch (err) {
 		res.status(400).json("Something went wrong");
 	}

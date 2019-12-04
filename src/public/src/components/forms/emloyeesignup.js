@@ -120,7 +120,7 @@ const EmployeeSignUpForm = () => {
 					color='secondary'
 					value={values.password}
 					onChange={handleChange}
-					validators={['required', 'matchRegexp:^(?=.*\\d).{6,30}$']}
+					validators={['required', 'matchRegexp:^(?=.*\\d).{3,30}$']}
 					errorMessages={[
 						'this field is required',
 						'password is not valid'
