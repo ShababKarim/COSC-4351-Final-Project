@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     },
     roleSelect: {
         marginLeft: theme.spacing(10),
-        minWidth: 120
+        minWidth: 300
     },
     wrap: {
         marginBottom: theme.spacing(10)
@@ -61,7 +61,7 @@ const PendingUsers = props => {
 
     return (
         <div className={classes.wrap}>
-            <h2 className={classes.header}>Approve Admins:</h2>
+            <h2 className={classes.header}>Approve Admins</h2>
             <div className={classes.container}>
                 <ValidatorForm onError={errors => console.log(errors)}>
                     <FormControl className={classes.linkSelect}>
