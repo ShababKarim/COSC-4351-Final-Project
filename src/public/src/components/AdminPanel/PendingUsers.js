@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,17 +6,17 @@ import Button from '@material-ui/core/Button';
 
 import { ROLES, changePendingStatus } from '../../util';
 
-const AdminPanel = props => {
+const PendingUsers = ({ pending, setPending }) => {
 	const [formValue, setFormValue] = useState({
 		email: '',
 		adminType: ''
 	});
 
-	const handleChange = (select, value) => {
+	const handleChange = useCallback((select, value) => {
 		setFormValue({ ...formValue, [select]: value });
-	};
+	});
 
-	const handleSubmit = async changeType => {
+	const handleSubmit = useCallback(async changeType => {
 		const endpoint =
 			changeType === 'Approve' ? 'api/update/admin' : 'api/remove/admin';
 		await changePendingStatus(
@@ -25,7 +25,7 @@ const AdminPanel = props => {
 			endpoint
 		);
 		setFormValue({ email: '', adminType: '' });
-	};
+	});
 
 	return (
 		<div>
@@ -36,7 +36,7 @@ const AdminPanel = props => {
 					onChange={e => handleChange('email', e.target.value)}
 				>
 					<MenuItem value={''}></MenuItem>
-					{props.pending.map(({ _id, email }) => (
+					{pending.map(({ _id, email }) => (
 						<MenuItem key={_id} value={email}>
 							{email}
 						</MenuItem>
@@ -49,8 +49,8 @@ const AdminPanel = props => {
 				>
 					<MenuItem value={''}></MenuItem>
 					{ROLES.map((role, index) => (
-						<MenuItem key={index} value={role}>
-							{role}
+						<MenuItem key={index} value={role[0]}>
+							{role[1]}
 						</MenuItem>
 					))}
 				</Select>
@@ -73,4 +73,4 @@ const AdminPanel = props => {
 	);
 };
 
-export default AdminPanel;
+export default PendingUsers;

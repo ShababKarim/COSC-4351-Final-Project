@@ -1,9 +1,9 @@
 export const ROLES = [
-	'ADMIN',
-	'SALES_ADMIN',
-	'ENGG_ADMIN',
-	'HR_ADMIN',
-	'FINANCE_ADMIN'
+	['ADMIN', 'Admin'],
+	['SALES_ADMIN', 'Sales Admin'],
+	['ENGG_ADMIN', 'Eng. Admin'],
+	['HR_ADMIN', 'HR Admin'],
+	['FINANCE_ADMIN', 'Finance Admin']
 ];
 
 export async function changePendingStatus(email, adminType, endpoint) {
