@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const SuperAdminTabs = () => {
+const SuperAdminTabs = props => {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 
@@ -75,7 +75,7 @@ const SuperAdminTabs = () => {
 				<ManageAdminsForm />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				<ManageLinksForm />
+				<ManageLinksForm links={props.links} />
 			</TabPanel>
 		</div>
 	);

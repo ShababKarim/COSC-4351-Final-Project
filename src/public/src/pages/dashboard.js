@@ -39,7 +39,7 @@ const Dashboard = () => {
 			<HomeDrawer />
 			<Links links={links} />
 			{auth && auth.adminType === 'SUPER_ADMIN' ? (
-				<SuperAdminTabs />
+				<SuperAdminTabs links={links} />
 			) : null}
 		</div>
 	);

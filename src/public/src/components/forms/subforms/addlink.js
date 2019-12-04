@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { useForm } from '../../hooks/useForm';
 import {
     ValidatorForm,
+    TextValidator,
     SelectValidator
 } from 'react-material-ui-form-validator';
 
@@ -14,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex'
     },
-    header: { marginTop: theme.spacing(4), marginBottom: theme.spacing(0) },
+    header: { marginTop: theme.spacing(2), marginBottom: theme.spacing(0) },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
@@ -23,11 +24,7 @@ const useStyles = makeStyles(theme => ({
     button: {
         marginLeft: theme.spacing(10)
     },
-    linkSelect: {
-        marginLeft: theme.spacing(1),
-        minWidth: 300
-    },
-    roleSelect: {
+    formControl: {
         marginLeft: theme.spacing(10),
         minWidth: 120
     },
@@ -36,12 +33,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const UpdateLink = props => {
+const AddLink = props => {
     const classes = useStyles();
     const [values, handleChange] = useForm({ link: '', role: '' });
 
     function handleSubmit(event) {
-        fetch('http://localhost:5000/api/update/link', {
+        fetch('http://localhost:5000/api/add/link', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -63,33 +60,27 @@ const UpdateLink = props => {
     }
     return (
         <div className={classes.wrap}>
-            <h2 className={classes.header}>Update Links:</h2>
+            <h2 className={classes.header}>Add Link:</h2>
             <div className={classes.container}>
                 <ValidatorForm
                     onError={errors => console.log(errors)}
                     onSubmit={handleSubmit}
                 >
-                    <FormControl className={classes.linkSelect}>
-                        <SelectValidator
-                            name="link"
-                            label="Link"
-                            color="secondary"
-                            id="link-select"
-                            value={values.link}
-                            onChange={handleChange}
-                            validators={['required']}
-                            errorMessages={['this field is required']}
-                        >
-                            {props.links.map(({ url, _id }) => {
-                                return (
-                                    <MenuItem key={_id} value={url}>
-                                        {url}
-                                    </MenuItem>
-                                );
-                            })}
-                        </SelectValidator>
-                    </FormControl>
-                    <FormControl className={classes.roleSelect}>
+                    <TextValidator
+                        name="link"
+                        label="Link"
+                        id="link"
+                        color="secondary"
+                        className={classes.textField}
+                        value={values.link}
+                        onChange={handleChange}
+                        validators={['required', 'matchRegexp:^\\w.{0,30}$']}
+                        errorMessages={[
+                            'this field is required',
+                            'link is not valid'
+                        ]}
+                    />
+                    <FormControl className={classes.formControl}>
                         <SelectValidator
                             name="role"
                             label="Role"
@@ -118,7 +109,7 @@ const UpdateLink = props => {
                         color="primary"
                         className={classes.button}
                     >
-                        <Button type="submit">Update</Button>
+                        <Button type="submit">Add</Button>
                     </ButtonGroup>
                 </ValidatorForm>
             </div>
@@ -126,4 +117,4 @@ const UpdateLink = props => {
     );
 };
 
-export default UpdateLink;
+export default AddLink;
