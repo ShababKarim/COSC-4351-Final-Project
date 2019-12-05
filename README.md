@@ -14,8 +14,5 @@
 
 ## Test Logins (role:user:pass)
 
-- Eng. Admin:icopeverything@gmail.com:123456
-- Finance Admin:btellis@uh.edu:123546
-- HR Admin:skarim6@uh.edu:123456
-- Sales Admin:keshavtauh@gmail.com:123456
+
 - Request email and password for Super Admin testing.
