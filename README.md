@@ -12,7 +12,3 @@
 2. Run 'npm run watch-ts' in the root directory in a separate terminal.
 3. Run 'npm start' in the root directory to start the server and in src/public to start the react dev server
 
-## Test Logins (role:user:pass)
-
-
-- Request email and password for Super Admin testing.
