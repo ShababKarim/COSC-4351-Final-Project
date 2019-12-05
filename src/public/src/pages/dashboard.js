@@ -37,6 +37,7 @@ const Dashboard = () => {
           const res = await response.json();
           if (response.status !== 200) throw new Error(res);
           setAuth(res);
+          console.log(res);
         } catch (err) {
           alert(err);
         }
@@ -46,9 +47,9 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
-      <NavBar />
+      <NavBar name={auth && auth.name} adminType={auth && auth.adminType} />
       <HomeDrawer />
-      <Links links={links} />
+      {auth && auth.adminType !== "SUPER_ADMIN" ? <Links links={links} /> : null}
       {auth && auth.adminType === "SUPER_ADMIN" ? <SuperAdminTabs links={links} /> : null}
     </div>
   );

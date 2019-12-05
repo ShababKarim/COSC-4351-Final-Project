@@ -13,7 +13,7 @@ exports[`Dashboard renders without crashing 1`] = `
           class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
         >
           <div
-            style="float: none; margin-left: auto; margin-right: auto; position: relative; width: 40px; height: 40px;"
+            style="position: relative; width: 40px; height: 40px;"
           >
             <img
               alt="cur"
@@ -21,15 +21,21 @@ exports[`Dashboard renders without crashing 1`] = `
               style="position: absolute; display: block; left: 20px; top: 20px; width: 0px; height: 0px;"
             />
           </div>
+          <h5
+            class="MuiTypography-root MuiTypography-h5"
+            style="float: none; margin-left: auto; margin-right: auto; display: flex;"
+          >
+            , 
+          </h5>
         </div>
       </header>
     </div>
     <div>
       <div
-        class="MuiDrawer-root MuiDrawer-docked makeStyles-drawer-45"
+        class="MuiDrawer-root MuiDrawer-docked makeStyles-drawer-75"
       >
         <div
-          class="MuiPaper-root MuiPaper-elevation0 MuiDrawer-paper makeStyles-drawerPaper-46 MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft"
+          class="MuiPaper-root MuiPaper-elevation0 MuiDrawer-paper makeStyles-drawerPaper-76 MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft"
         >
           <hr
             class="MuiDivider-root"
